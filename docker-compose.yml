@@ -1,0 +1,18 @@
+version: "3"
+services:
+    php:
+        build:
+            context: ./php-fpm
+        volumes:
+            - './top:/var/www/top'
+            - './nested:/var/www/nested'
+
+    nginx:
+        build:
+            context: ./nginx
+        ports:
+            - '8000:8000'
+        volumes:
+            - './top:/var/www/top'
+            - './nested:/var/www/nested'
+            - '${PWD}/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf'
